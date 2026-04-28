@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu Jogo GitHub</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="game-container">
+        <div id="character"></div>
+        <div id="block"></div>
+    </div>
+    <p>Clique na tela ou pressione qualquer tecla para pular!</p>
+
+    <script>
+        const character = document.getElementById("character");
+        const block = document.getElementById("block");
+
+        function jump() {
+            if (character.classList != "animate") {
+                character.classList.add("animate");
+            }
+            setTimeout(function() {
+                character.classList.remove("animate");
+            }, 500);
+        }
+
+        const checkDead = setInterval(function() {
+            let characterTop = parseInt(window.getComputedStyle(character).getPropertyValue("top"));
+            let blockLeft = parseInt(window.getComputedStyle(block).getPropertyValue("left"));
+
+            if (blockLeft < 20 && blockLeft > 0 && characterTop >= 130) {
+                block.style.animation = "none";
+                block.style.display = "none";
+                alert("Game Over! Recarregue a página para tentar de novo.");
+            }
+        }, 10);
+
+        window.addEventListener("keydown", jump);
+        window.addEventListener("touchstart", jump);
+    </script>
+</body>
+</html>
